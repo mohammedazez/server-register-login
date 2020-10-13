@@ -6,17 +6,17 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 // Import model
-const { Student } = require("../../models");
+const { Register } = require("../../models");
 
 module.exports = {
   // Read by all
-  getAllStudent: (req, res) => {
-    Student.find()
+  getAllRegister: (req, res) => {
+    Register.find()
     // hilangkan _V di populate
       .populate("class", "-__v")
       .then((result) => {
         res.status(200).json({
-          message: "Sukses mendapatkan data student",
+          message: "Sukses mendapatkan data member register",
           result,
         });
       })
@@ -25,13 +25,13 @@ module.exports = {
       });
   },
   // Read by id
-  getStudentById: async (req, res) => { 
-    const students = await Student.findById(req.params.id);
+  getRegisterById: async (req, res) => { 
+    const peopleRegister = await Register.findById(req.params.id);
 
     try {
       res.json({
-        message: "Sukses mendapatkan data student berdasarkan ID",
-        students,
+        message: "Sukses mendapatkan data member register berdasarkan ID",
+        peopleRegister,
       });
     } catch (err) {
       console.log(err);
@@ -39,7 +39,7 @@ module.exports = {
     }
   },
   // Create
-  postStudent: async (req, res) => {
+  postRegister: async (req, res) => {
     // Masukkan bcrypt salt dan hash di post 
 
     // melakukan enksripsi pada passsworndya Sebanyak 10 karakter
@@ -48,19 +48,19 @@ module.exports = {
     // Setelah itu passwordnya akan di hash
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    // Ambil objek student di  request body
-    let student = {
+    // Ambil objek register di  request body
+    let peopleRegister = {
       ...req.body,
       // passwornya di ubah dengan hash lalu Tampilkan 
       password: hash
     }
-    console.log(student);
-    // Setelah itu akan membuat si studentnya
-    student = await Student.create(student);
+    console.log(peopleRegister);
+    // Setelah itu akan membuat si registernya 
+    peopleRegister = await Register.create(peopleRegister);
     try {
       res.json({
-        message: "Sukses menambahkan data student",
-        student
+        message: "Sukses menambahkan data Register",
+        peopleRegister
       });
     } catch (error) {
       console.log(error);
@@ -68,12 +68,12 @@ module.exports = {
     }
   },
   // Update by id
-  updateStudentById: async (req, res) => {
-    const students = await Student.findByIdAndUpdate(req.params.id, req.body);
+  updateRegisterById: async (req, res) => {
+    const peopleRegister = await Register.findByIdAndUpdate(req.params.id, req.body);
     try {
       res.json({
-        message: "Sukses update data student",
-        students,
+        message: "Sukses update data member register",
+        peopleRegister,
       });
     } catch (error) {
       console.log(error);
@@ -82,12 +82,12 @@ module.exports = {
   },
 
   // Delete by id
-  deleteStudentById: async (req, res) => {
-    const students = await Student.findByIdAndDelete(req.params.id, req.body);
+  deleteRegisterById: async (req, res) => {
+    const peopleRegister = await Register.findByIdAndDelete(req.params.id, req.body);
     try {
       res.json({
-        message: "Sukses hapus data Student",
-        students,
+        message: "Sukses hapus data member register",
+        peopleRegister,
       });
     } catch (error) {
       console.log(error);
@@ -95,20 +95,20 @@ module.exports = {
     }
   },
   // Buat login integrasi dengan bcrypt dan jwt
-  loginStudent: async (req, res) => {
+  loginRegister: async (req, res) => {
     try{
       // Cari spesifik data email
-      const student = await Student.findOne({email: req.body.email})
-      console.log(student);
+      const peopleRegister = await Register.findOne({email: req.body.email})
+      console.log(peopleRegister);
 
-      // Jika student ada maka harus dibuatkan jwtnya
-      if(student){
+      // Jika member register ada maka harus dibuatkan jwtnya
+      if(peopleRegister){
         // Apakah password yang di hash dengan password yang diinput sesuai dengan compare untuk membandingkan password yang sudah di hash dengan passowrdnya diinput 
-        const pass = bcrypt.compareSync(req.body.password, student.password)
+        const pass = bcrypt.compareSync(req.body.password, peopleRegister.password)
 
         // Jika passwordnya benar
         if(pass){
-          const token = jwt.sign(student.toObject(), process.env.SECRET_KEY)
+          const token = jwt.sign(peopleRegister.toObject(), process.env.SECRET_KEY)
           // Jika berhasil dibuatkan token maka munculkan
           res.json({
             message: "login sukses",
@@ -128,13 +128,13 @@ module.exports = {
     }
   },
 
-  //  buat get student di class
-  getStudentInClass: async (req, res) => {
-    const students = await Student.find({class: req.params.id})
+  //  buat get member register di class
+  getRegisterInClass: async (req, res) => {
+    const peopleRegister = await Register.find({class: req.params.id})
     try{
       res.json({
-        message: "Sukses mendapat data student di class",
-        students,
+        message: "Sukses mendapatkan data register di class",
+        peopleRegister,
       });
     } catch(error){
       console.log(error);

@@ -10,8 +10,8 @@ const { database } = require("./config");
 
 //   import router
 const indexRouter = require("./routes/index");
-const studentRouter = require("./routes/student");
-const classRouter = require("./routes/classRoom");
+const registerRouter = require("./routes/register");
+const mottoRouter = require("./routes/motto");
 const app = express();
 
 console.log("Mongodb uri live", MONGODB_URI_LIVE);
@@ -25,10 +25,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Import index router
 app.use("/", indexRouter);
-// untuk mengambil data student
-app.use("/student", studentRouter);
-// untuk mengambil data class
-app.use("/class", classRouter);
+// untuk mengambil data register member
+app.use("/register", registerRouter);
+// untuk mengambil data motto
+app.use("/motto", mottoRouter);
 
 // Cek koneksi database.js dbmongo
 if (database) {

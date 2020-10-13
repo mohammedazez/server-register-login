@@ -1,10 +1,10 @@
-// Import Student
-const Student = require("./Student");
+// Import Register
+const Register = require("./register");
 // Import Classroom
-const ClassRoom = require("./ClassRoom");
+const Motto = require("./motto");
 
 // Ekspor Student and Classroom
 module.exports = {
-  Student,
-  ClassRoom,
+  Register,
+  Motto,
 };

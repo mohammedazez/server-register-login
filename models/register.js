@@ -1,21 +1,24 @@
 // Import mongoose
 const mongoose = require("mongoose");
 
-const StudentSchema = new mongoose.Schema({
+const RegisterSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   email: String,
   password: String,
-  class: {
+  gender: String,
+  address: String,
+  skill: String,
+  motto: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "class-room",
+    ref: "motto",
   },
 });
 
 // Buat nama databasenya
-const Student = mongoose.model("studentss jwt", StudentSchema);
+const Register = mongoose.model("register", RegisterSchema);
 
 // Ekspor
-module.exports = Student;
+module.exports = Register;

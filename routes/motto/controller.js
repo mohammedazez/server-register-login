@@ -1,13 +1,13 @@
 // Import model
-const { ClassRoom } = require("../../models");
+const { Motto } = require("../../models");
 
 module.exports = {
   // Read by all
-  getAllClass: (req, res) => {
-    ClassRoom.find()
+  getAllMotto: (req, res) => {
+    Motto.find()
       .then((result) => {
         res.status(200).json({
-          message: "Sukses mendapatkan data Class",
+          message: "Sukses mendapatkan data Motto",
           result,
         });
       })
@@ -16,12 +16,12 @@ module.exports = {
       });
   },
   // Read by id
-  getClassById: async (req, res) => {
-    const classRooms = await ClassRoom.findById(req.params.id);
+  getMottoById: async (req, res) => {
+    const mottoRooms = await Motto.findById(req.params.id);
     try {
       res.json({
-        message: "Sukses mendapatkan data Class berdasarkan ID",
-        classRooms,
+        message: "Sukses mendapatkan data Motto berdasarkan ID",
+        mottoRooms,
       });
     } catch (err) {
       console.log(err);
@@ -29,12 +29,12 @@ module.exports = {
     }
   },
   // Create
-  postClass: async (req, res) => {
-    const classRooms = await ClassRoom.create(req.body);
+  postMotto: async (req, res) => {
+    const mottoRooms = await Motto.create(req.body);
     try {
       res.json({
-        message: "Sukses menambahkan data Class",
-        classRooms,
+        message: "Sukses menambahkan data Motto",
+        mottoRooms,
       });
     } catch (error) {
       console.log(error);
@@ -42,15 +42,15 @@ module.exports = {
     }
   },
   // Update by id
-  updateClassById: async (req, res) => {
-    const classRooms = await ClassRoom.findByIdAndUpdate(
+  updateMottoById: async (req, res) => {
+    const mottoRooms = await Motto.findByIdAndUpdate(
       req.params.id,
       req.body
     );
     try {
       res.json({
-        message: "Sukses update data Class",
-        classRooms,
+        message: "Sukses update data Motto",
+        mottoRooms,
       });
     } catch (error) {
       console.log(error);
@@ -59,12 +59,12 @@ module.exports = {
   },
 
   // Delete by id
-  deleteClassById: async (req, res) => {
-    const Class = await ClassRoom.findByIdAndDelete(req.params.id, req.body);
+  deleteMottoById: async (req, res) => {
+    const Motto = await Motto.findByIdAndDelete(req.params.id, req.body);
     try {
       res.json({
-        message: "Sukses hapus data Class",
-        Class,
+        message: "Sukses hapus data Motto",
+        Motto,
       });
     } catch (error) {
       console.log(error);
