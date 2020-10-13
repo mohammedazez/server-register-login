@@ -1,4 +1,4 @@
-# server-authentication
+# server-register and login
 Backend make Json data more safety using Json Web Token and encryption.
 
 
